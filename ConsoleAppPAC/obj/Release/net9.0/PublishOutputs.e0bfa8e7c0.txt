@@ -1,0 +1,5 @@
+/Users/colwob/dev/dotnet/ConsoleAppPAC/bin/Release/net9.0/publish/ConsoleAppPAC
+/Users/colwob/dev/dotnet/ConsoleAppPAC/bin/Release/net9.0/publish/ConsoleAppPAC.dll
+/Users/colwob/dev/dotnet/ConsoleAppPAC/bin/Release/net9.0/publish/ConsoleAppPAC.deps.json
+/Users/colwob/dev/dotnet/ConsoleAppPAC/bin/Release/net9.0/publish/ConsoleAppPAC.runtimeconfig.json
+/Users/colwob/dev/dotnet/ConsoleAppPAC/bin/Release/net9.0/publish/ConsoleAppPAC.pdb

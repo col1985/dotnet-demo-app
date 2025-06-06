@@ -1,0 +1,5 @@
+/Users/colwob/dev/dotnet/ConsoleAppProject/publish/ConsoleAppPAC
+/Users/colwob/dev/dotnet/ConsoleAppProject/publish/ConsoleAppPAC.dll
+/Users/colwob/dev/dotnet/ConsoleAppProject/publish/ConsoleAppPAC.deps.json
+/Users/colwob/dev/dotnet/ConsoleAppProject/publish/ConsoleAppPAC.runtimeconfig.json
+/Users/colwob/dev/dotnet/ConsoleAppProject/publish/ConsoleAppPAC.pdb
