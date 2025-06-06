@@ -27,6 +27,8 @@ spec:
       value: ConsoleAppPAC
     - name: context-dir
       value: "."
+    - name: release-dir
+      value: "./publish"
     - name: dockerfile
       value: ./Dockerfile
     - name: repo_url
