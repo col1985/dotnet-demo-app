@@ -1,0 +1,56 @@
+---
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: dotnet-demo-app-pipeline-run
+  annotations:
+    # The event we are targeting as seen from the webhook payload
+    # this can be an array too, i.e: [pull_request, push]
+    pipelinesascode.tekton.dev/on-event: "[pull_request, push]"
+
+    # The branch or tag we are targeting (ie: main, refs/tags/*)
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+
+    pipelinesascode.tekton.dev/pipeline: https://github.com/col1985/tkn-pipelines-as-code/blob/main/pipelines/dotnet-build-and-push-pipeline.yaml
+
+    # How many runs we want to keep.
+    pipelinesascode.tekton.dev/max-keep-runs: "5"
+spec:
+  pipelineRef:
+    name:  dotnet-build-test-bake-push
+  params:
+    # The variable with brackets are special to Pipelines as Code
+    # They will automatically be expanded with the events from Github.
+    - name: version
+      value: v0.0.1
+    - name: project-name
+      value: ConsoleAppPAC
+    - name: context_dir
+      value: "."
+    - name: dockerfile
+      value: ./Dockerfile
+    - name: repo_url
+      value: "{{ repo_url }}"
+    - name: revision
+      value: "{{ revision }}"
+    - name: registry-url
+      value: quay.io/cbennett/dotnet-demo-app
+    - name: package
+      value: "."
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
+    # This workspace will inject secret to help the git-clone task to be able to
+    # checkout the private repositories
+    - name: basic-auth
+      secret:
+        secretName: "{{ git_auth_secret }}"
+    - name: dockerconfig-ws
+      secret:
+        secretName: quay-secret
