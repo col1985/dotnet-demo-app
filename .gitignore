@@ -1,3 +1,5 @@
 publish
 ConsoleAppPAC/bin
 ConsoleAppPAC/obj
+ConsoleAppPAC.Tests/bin
+ConsoleAppPAC.Tests/obj
