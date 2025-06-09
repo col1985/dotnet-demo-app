@@ -41,6 +41,12 @@ spec:
       value: quay.io/cbennett/dotnet-demo-app
     - name: package
       value: "."
+    - name: sonar-host-url
+      value: https://sonarcloud.io
+    - name: sonar-project-key
+      value: col1985_dotnet-demo-app
+    - name: sonar-organization
+      value: col1985
   workspaces:
     - name: shared-workspace
       volumeClaimTemplate:
