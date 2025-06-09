@@ -47,6 +47,8 @@ spec:
       value: col1985_dotnet-demo-app
     - name: sonar-organization
       value: col1985
+    - name: src-to-scan
+      value: .
   workspaces:
     - name: shared-workspace
       volumeClaimTemplate:
