@@ -1,12 +1,12 @@
 ---
 apiVersion: tekton.dev/v1
-kind: PipelineRuns
+kind: PipelineRun
 metadata:
   name: dotnet-demo-app-pipeline-run
   annotations:
     # The event we are targeting as seen from the webhook payload
     # this can be an array too, i.e: [pull_request, push]
-    # pipelinesascode.tekton.dev/on-event: "[pupush]"
+    pipelinesascode.tekton.dev/on-event: "[pull_request, push]"
 
     # The branch or tag we are targeting (ie: main, refs/tags/*)
     pipelinesascode.tekton.dev/on-target-branch: "[main]"
@@ -16,36 +16,13 @@ metadata:
     # How many runs we want to keep.
     pipelinesascode.tekton.dev/max-keep-runs: "5"
 spec:
-  when:
-    # Condition 1: Ensure the PR action is 'closed'
-    - input: $(tt.params.pr-action)
-      operator: in
-      values: ["closed"]
-    # Condition 2: Ensure the PR was actually merged (not just closed without merge)
-    - input: $(tt.params.pr-merged)
-      operator: in
-      values: ["true"] # Note: The 'merged' field is a boolean in GitHub payload,
-                        # but Tekton params convert it to string 'true' or 'false'.
-      # Condition 3: Ensure the target branch is 'main'
-    - input: $(tt.params.base-branch)
-      operator: in
-      values: ["main"]
-
   pipelineRef:
     name:  dotnet-build-test-bake-push
   params:
     # The variable with brackets are special to Pipelines as Code
     # They will automatically be expanded with the events from Github.
-    - name: repo_url
-      value: $(tt.params.git-repo-url)
-    - name: revision
-      value: $(tt.params.git-revision)
-    - name: pr-number
-      value: $(tt.params.pr-id) # Pass PR ID if your pipeline needs it
-    - name: target-branch-name # Pass the target branch to the pipeline for context
-      value: $(tt.params.base-branch)
     - name: version
-      value: v0.0.3
+      value: v0.0.4
     - name: base-image
       value: registry.redhat.io/rhel8/dotnet-90:latest
     - name: project-name
@@ -56,10 +33,10 @@ spec:
       value: "./publish"
     - name: dockerfile
       value: ./Dockerfile
-    # - name: repo_url
-      # value: "{{ repo_url }}"
-    # - name: revision
-    #   value: "{{ revision }}"
+    - name: repo_url
+      value: "{{ repo_url }}"
+    - name: revision
+      value: "{{ revision }}"
     - name: registry-url
       value: quay.io/cbennett/dotnet-demo-app
     - name: package
