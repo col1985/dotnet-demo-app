@@ -22,7 +22,7 @@ spec:
     # The variable with brackets are special to Pipelines as Code
     # They will automatically be expanded with the events from Github.
     - name: version
-      value: v0.0.3
+      value: v0.0.4
     - name: base-image
       value: registry.redhat.io/rhel8/dotnet-90:latest
     - name: project-name
